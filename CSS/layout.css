@@ -1,13 +1,25 @@
+div{
+    display: flex;
+    justify-content: space-around;
+    width: 1600px;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
 section{
-    float: left;
+    
      margin: 10px ;
     background-color:#F3A391; 
     border:1px solid #B26A5A ;
-    width: 300px;
+    width: 350px;
     height: 600px;
+    text-align: center;
 }
 footer{
     position: absolute;
-    margin-top: 2500px;
     margin-left: 50%;
+}
+button{
+ 
+background-color: aqua; 
 }
