@@ -1,6 +1,8 @@
 'use strict'
 let arrayObject = [];
 let optionArray = [];
+let sotredTitle=[];
+let sotredTitle2=[];
 let arrayObject2 = [];
 let optionArray2 = [];
 $('#art2').hide();
@@ -25,25 +27,30 @@ $.get('./data/page-1.json')
         data.forEach(element => {
             let x = new constructor(element.image_url, element.title, element.description, element.keyword, element.horns);
             arrayObject.push(x);
+            sotredTitle.push(x);
             x.render($('#page1'));
 
         });
-
         let selectt = $("#one");
         selectt.append(`<option >keyword</option>`);
         arrayObject.forEach(element => {
             if (!optionArray.includes(element.keyword)) {
+                
                 optionArray.push(element.keyword);
+                
+                
                 selectt.append(`<option >${element.keyword}</option>`);
             }
 
         });
         selectt.on('change', function () {
+            sotredTitle=[];
             console.log('heil');
             $('#page1 section').hide();
             let value1 = this.value;
             optionArray.forEach(element => {
                 if (element == value1) {
+                    
                     optionRender(value1,$('#page1'),arrayObject);
                 }
             });
@@ -54,26 +61,28 @@ $.get('./data/page-1.json')
         selectt2.append(`<option >title</option>`);
         selectt2.append(`<option >horns</option>`);
         selectt2.on('change', function () {
-
+        console.log(sotredTitle);
+        console.log(arrayObject);
             if (this.value == 'title') {
-                arrayObject.sort((a, b) =>
+                sotredTitle.sort((a, b) =>
                     (a.title > b.title) ? 1 : -1);
+                    
                 $('#page1 section').hide();
-                arrayObject.forEach((element) => {
-                    console.log(element.title);
+                sotredTitle.forEach((element) => {
                     let temp = $('#obada').html();
 
                     var temp1 = Mustache.render(temp, element);
                     $('#page1').append(temp1);
 
 
+
                 });
             }
             if (this.value == 'horns') {
-                arrayObject.sort((a, b) =>
+                sotredTitle.sort((a, b) =>
                     (a.horns > b.horns) ? 1 : -1);
                 $('#page1 section').hide();
-                arrayObject.forEach((element) => {
+                sotredTitle.forEach((element) => {
                     
                     let temp = $('#obada').html();
 
@@ -95,6 +104,7 @@ $.get('./data/page-2.json')
         data.forEach(element => {
             let x = new constructor(element.image_url, element.title, element.description, element.keyword, element.horns);
             arrayObject2.push(x);
+            sotredTitle2.push(x);
             x.render($('#page2'));
 
         });
@@ -109,6 +119,7 @@ $.get('./data/page-2.json')
 
         });
         selectt.on('change', function () {
+            sotredTitle2=[];
             console.log('heil');
             $('#page2 section').hide();
             let value = this.value;
@@ -126,10 +137,10 @@ $.get('./data/page-2.json')
         selectt2.on('change', function () {
 
             if (this.value == 'title') {
-                arrayObject2.sort((a, b) =>
+                sotredTitle2.sort((a, b) =>
                     (a.title > b.title) ? 1 : -1);
                 $('#page2 section').hide();
-                arrayObject2.forEach((element) => {
+                sotredTitle2.forEach((element) => {
                     console.log(element.title);
                     let temp = $('#obada').html();
 
@@ -140,10 +151,10 @@ $.get('./data/page-2.json')
                 });
             }
             if (this.value == 'horns') {
-                arrayObject2.sort((a, b) =>
+                sotredTitle2.sort((a, b) =>
                     (a.horns > b.horns) ? 1 : -1);
                 $('#page2 section').hide();
-                arrayObject2.forEach((element) => {
+                sotredTitle2.forEach((element) => {
                     console.log(element.title);
                     let temp = $('#obada').html();
 
@@ -161,6 +172,8 @@ $.get('./data/page-2.json')
 function optionRender(selected,article,arr) {
     arr.forEach((element) => {
         if (element.keyword == selected) {
+            sotredTitle.push(element);
+            sotredTitle2.push(element);
             let temp = $('#obada').html();
 
             var temp1 = Mustache.render(temp, element);
